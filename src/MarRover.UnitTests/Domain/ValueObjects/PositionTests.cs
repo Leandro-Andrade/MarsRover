@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 using FluentAssertions;
 using Xunit;
 
-namespace Domain.UnitTests.ValueObjects
+namespace MarRover.UnitTests.Domain.ValueObjects
 {
     public class PositionTests
     {

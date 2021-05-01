@@ -1,10 +1,13 @@
-﻿using Domain.ValueObjects;
+﻿using System;
+using Domain.Enums;
+using Domain.ValueObjects;
 
 namespace Domain.Entities
 {
     public class Rover
     {
-        public string FacingDirection { get; set; } // Possibly an enum
+        public Guid Id { get; set; }
+        public FacingDirection FacingDirection { get; set; }
         public Position Position { get; set; }
     }
 }
