@@ -12,6 +12,7 @@ namespace Application.Rovers.Commands
     public class MoveRoverCommand : IRequest
     {
         public Rover Rover { get; set; }
+        public Plateau Plateau { get; set; }
         public IReadOnlyCollection<MovementType> Movements { get; set; }
     }
 
@@ -19,16 +20,16 @@ namespace Application.Rovers.Commands
     {
         public Task<Unit> Handle(MoveRoverCommand request, CancellationToken cancellationToken)
         {
-            if (request.Rover == null)
+            if (request.Rover == null || request.Plateau == null)
                 return Task.FromResult(Unit.Value);
 
             foreach (var movement in request.Movements)
             {
-                // Maybe Strategy to clean-up all those logic?
+                // Maybe use Strategy to clean-up all those logic?
                 switch (movement)
                 {
                     case MovementType.Forward:
-                        MoveForward(request.Rover);
+                        MoveForward(request);
                         break;
 
                     case MovementType.Right:
@@ -44,15 +45,17 @@ namespace Application.Rovers.Commands
             return Task.FromResult(Unit.Value);
         }
 
-        private static void MoveForward(Rover rover)
+        private static void MoveForward(MoveRoverCommand command)
         {
             Position targetPosition;
+            var rover = command.Rover;
+            var plateau = command.Plateau;
 
             switch (rover.FacingDirection)
             {
                 case FacingDirection.North:
                     targetPosition = new Position(rover.Position.X, rover.Position.Y + 1);
-                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    if (!plateau.IsWithinBounds(targetPosition))
                     {
                         throw new OffGridMovementException(rover.Position, rover.FacingDirection);
                     }
@@ -61,7 +64,7 @@ namespace Application.Rovers.Commands
 
                 case FacingDirection.South:
                     targetPosition = new Position(rover.Position.X, rover.Position.Y - 1);
-                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    if (!plateau.IsWithinBounds(targetPosition))
                     {
                         throw new OffGridMovementException(rover.Position, rover.FacingDirection);
                     }
@@ -70,7 +73,7 @@ namespace Application.Rovers.Commands
 
                 case FacingDirection.East:
                     targetPosition = new Position(rover.Position.X + 1, rover.Position.Y);
-                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    if (!plateau.IsWithinBounds(targetPosition))
                     {
                         throw new OffGridMovementException(rover.Position, rover.FacingDirection);
                     }
@@ -79,7 +82,7 @@ namespace Application.Rovers.Commands
 
                 case FacingDirection.West:
                     targetPosition = new Position(rover.Position.X - 1, rover.Position.Y);
-                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    if (!plateau.IsWithinBounds(targetPosition))
                     {
                         throw new OffGridMovementException(rover.Position, rover.FacingDirection);
                     }

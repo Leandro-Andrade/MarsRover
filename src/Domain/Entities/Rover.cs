@@ -7,13 +7,11 @@ namespace Domain.Entities
     {
         public FacingDirection FacingDirection { get; set; }
         public Position Position { get; set; }
-        public Plateau Plateau { get; set; }
 
-        public Rover(FacingDirection facingDirection, Position position, Plateau plateau)
+        public Rover(FacingDirection facingDirection, Position position)
         {
             FacingDirection = facingDirection;
             Position = position;
-            Plateau = plateau;
         }
     }
 }
