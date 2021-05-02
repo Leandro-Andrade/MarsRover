@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 using FluentAssertions;
 using Xunit;
 
-namespace MarRover.UnitTests.Domain.ValueObjects
+namespace MarRover.UnitTests.Domain
 {
     public class PositionTests
     {
@@ -42,13 +42,6 @@ namespace MarRover.UnitTests.Domain.ValueObjects
             int hash2 = position2.GetHashCode();
 
             hash1.Should().Be(hash2);
-        }
-
-        [Fact]
-        public void Should_throw_InvalidNegativePositionException_if_negative_coordinate()
-        {
-            FluentActions.Invoking(() => new Position(-1, -3))
-                .Should().Throw<InvalidNegativePositionException>();
         }
     }
 }

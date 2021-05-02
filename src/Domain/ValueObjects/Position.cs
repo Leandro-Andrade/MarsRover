@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Domain.Common;
-using Domain.Exceptions;
 
 namespace Domain.ValueObjects
 {
@@ -11,9 +10,6 @@ namespace Domain.ValueObjects
 
         public Position(int x, int y)
         {
-            if (x < 0 || y < 0)
-                throw new InvalidNegativePositionException($"({x}, {y})");
-
             X = x;
             Y = y;
         }
