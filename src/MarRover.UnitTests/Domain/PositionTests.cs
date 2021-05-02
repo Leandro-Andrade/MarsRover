@@ -1,4 +1,3 @@
-using Domain.Exceptions;
 using Domain.ValueObjects;
 using FluentAssertions;
 using Xunit;

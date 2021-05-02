@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.ValueObjects;
 using FluentAssertions;
 using Xunit;
@@ -25,6 +26,18 @@ namespace MarRover.UnitTests.Domain
             bool isWithinBounds = plateau.IsWithinBounds(new Position(6, 5));
 
             isWithinBounds.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Should_throw_exception_if_any_measurement_is_negative()
+        {
+            FluentActions.Invoking(() => new Plateau(-5, -5)).Should().Throw<InvalidPlateauSizeException>();
+        }
+
+        [Fact]
+        public void Should_throw_exception_if_area_is_less_than_four()
+        {
+            FluentActions.Invoking(() => new Plateau(0, 2)).Should().Throw<InvalidPlateauSizeException>();
         }
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Domain.Exceptions
 {
-    public class InvalidNegativePositionException : Exception
+    public class InvalidPlateauSizeException : Exception
     {
-        public InvalidNegativePositionException(string position) 
-            : base($"The position {position} is not valid. A rover cannot be at a negative position.")
+        public InvalidPlateauSizeException(int width, int length) :
+            base($"Invalid Plateau size: W={width}, L={length}. The Plateau measurements must be positive and the area be at least 4 (width * length).")
         {
         }
     }
