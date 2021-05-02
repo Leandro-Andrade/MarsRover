@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Exceptions;
 using Domain.Entities;
 using Domain.Enums;
 using Domain.ValueObjects;
@@ -23,6 +24,7 @@ namespace Application.Rovers.Commands
 
             foreach (var movement in request.Movements)
             {
+                // Maybe Strategy to clean-up all those logic?
                 switch (movement)
                 {
                     case MovementType.Forward:
@@ -44,27 +46,49 @@ namespace Application.Rovers.Commands
 
         private static void MoveForward(Rover rover)
         {
+            Position targetPosition;
+
             switch (rover.FacingDirection)
             {
                 case FacingDirection.North:
-                    rover.Position = new Position(rover.Position.X, rover.Position.Y + 1);
+                    targetPosition = new Position(rover.Position.X, rover.Position.Y + 1);
+                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    {
+                        throw new OffGridMovementException(rover.Position, rover.FacingDirection);
+                    }
+                    rover.Position = targetPosition;
                     break;
 
                 case FacingDirection.South:
-                    rover.Position = new Position(rover.Position.X, rover.Position.Y - 1);
+                    targetPosition = new Position(rover.Position.X, rover.Position.Y - 1);
+                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    {
+                        throw new OffGridMovementException(rover.Position, rover.FacingDirection);
+                    }
+                    rover.Position = targetPosition;
                     break;
 
                 case FacingDirection.East:
-                    rover.Position = new Position(rover.Position.X + 1, rover.Position.Y);
+                    targetPosition = new Position(rover.Position.X + 1, rover.Position.Y);
+                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    {
+                        throw new OffGridMovementException(rover.Position, rover.FacingDirection);
+                    }
+                    rover.Position = targetPosition;
                     break;
 
                 case FacingDirection.West:
-                    rover.Position = new Position(rover.Position.X - 1, rover.Position.Y);
+                    targetPosition = new Position(rover.Position.X - 1, rover.Position.Y);
+                    if (!rover.Plateau.IsWithinBounds(targetPosition))
+                    {
+                        throw new OffGridMovementException(rover.Position, rover.FacingDirection);
+                    }
+                    rover.Position = targetPosition;
                     break;
             }
         }
 
-        private void TurnRight(Rover rover)
+        private static void TurnRight(Rover rover)
         {
             int newFacingDirectionDegrees = (int)rover.FacingDirection + 90;
 
@@ -73,7 +97,7 @@ namespace Application.Rovers.Commands
                 : (FacingDirection)newFacingDirectionDegrees;
         }
 
-        private void TurnLeft(Rover rover)
+        private static void TurnLeft(Rover rover)
         {
             int newFacingDirectionDegrees = (int)rover.FacingDirection - 90;
 
