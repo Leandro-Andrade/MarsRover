@@ -28,6 +28,14 @@ namespace Application.Rovers.Commands
                     case MovementType.Forward:
                         MoveForward(request.Rover);
                         break;
+
+                    case MovementType.Right:
+                        TurnRight(request.Rover);
+                        break;
+
+                    case MovementType.Left:
+                        TurnLeft(request.Rover);
+                        break;
                 }
             }
 
@@ -58,11 +66,20 @@ namespace Application.Rovers.Commands
 
         private void TurnRight(Rover rover)
         {
+            int newFacingDirectionDegrees = (int)rover.FacingDirection + 90;
 
+            rover.FacingDirection = newFacingDirectionDegrees == 360
+                ? FacingDirection.North
+                : (FacingDirection)newFacingDirectionDegrees;
         }
 
         private void TurnLeft(Rover rover)
         {
+            int newFacingDirectionDegrees = (int)rover.FacingDirection - 90;
+
+            rover.FacingDirection = newFacingDirectionDegrees == -90
+                ? FacingDirection.West
+                : (FacingDirection)newFacingDirectionDegrees;
         }
     }
 }

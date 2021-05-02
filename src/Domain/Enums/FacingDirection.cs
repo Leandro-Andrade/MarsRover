@@ -2,9 +2,9 @@
 {
     public enum FacingDirection
     {
-        North,
-        East,
-        South,
-        West
+        North = 0,
+        East = 90,
+        South = 180,
+        West = 270
     }
 }

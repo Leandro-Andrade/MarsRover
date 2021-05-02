@@ -12,8 +12,12 @@ namespace MarRover.UnitTests.Application.Rovers
 {
     public class MoveRoverCommandTests
     {
-        [Fact]
-        public async Task Should_move_rover()
+        [Theory]
+        [InlineData(0, 1, MovementType.Forward)]
+        [InlineData(0, 2, MovementType.Forward, MovementType.Forward)]
+        [InlineData(1, 1, MovementType.Forward, MovementType.Right, MovementType.Forward)]
+        [InlineData(1, 2, MovementType.Forward, MovementType.Right, MovementType.Forward, MovementType.Left, MovementType.Forward)]
+        public async Task Should_move_rover_to_the_expected_position(int expectedX, int expectedY, params MovementType[] movements)
         {
             var rover = new Rover
             {
@@ -21,15 +25,12 @@ namespace MarRover.UnitTests.Application.Rovers
                 Position = new Position(0, 0)
             };
 
-            var expectedPosition = new Position(0, 1);
+            var expectedPosition = new Position(expectedX, expectedY);
 
             var command = new MoveRoverCommand
             {
                 Rover = rover,
-                Movements = new List<MovementType>
-                {
-                    MovementType.Forward
-                }
+                Movements = new List<MovementType>(movements)
             };
 
             var commandHandler = new MoveRoverCommandHandler();
