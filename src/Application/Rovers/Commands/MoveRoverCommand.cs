@@ -53,7 +53,7 @@ namespace Application.Rovers.Commands
 
             switch (rover.FacingDirection)
             {
-                case FacingDirection.North:
+                case FacingDirection.N:
                     targetPosition = new Position(rover.Position.X, rover.Position.Y + 1);
                     if (!plateau.IsWithinBounds(targetPosition))
                     {
@@ -62,7 +62,7 @@ namespace Application.Rovers.Commands
                     rover.Position = targetPosition;
                     break;
 
-                case FacingDirection.South:
+                case FacingDirection.S:
                     targetPosition = new Position(rover.Position.X, rover.Position.Y - 1);
                     if (!plateau.IsWithinBounds(targetPosition))
                     {
@@ -71,7 +71,7 @@ namespace Application.Rovers.Commands
                     rover.Position = targetPosition;
                     break;
 
-                case FacingDirection.East:
+                case FacingDirection.E:
                     targetPosition = new Position(rover.Position.X + 1, rover.Position.Y);
                     if (!plateau.IsWithinBounds(targetPosition))
                     {
@@ -80,7 +80,7 @@ namespace Application.Rovers.Commands
                     rover.Position = targetPosition;
                     break;
 
-                case FacingDirection.West:
+                case FacingDirection.W:
                     targetPosition = new Position(rover.Position.X - 1, rover.Position.Y);
                     if (!plateau.IsWithinBounds(targetPosition))
                     {
@@ -96,7 +96,7 @@ namespace Application.Rovers.Commands
             int newFacingDirectionDegrees = (int)rover.FacingDirection + 90;
 
             rover.FacingDirection = newFacingDirectionDegrees == 360
-                ? FacingDirection.North
+                ? FacingDirection.N
                 : (FacingDirection)newFacingDirectionDegrees;
         }
 
@@ -105,7 +105,7 @@ namespace Application.Rovers.Commands
             int newFacingDirectionDegrees = (int)rover.FacingDirection - 90;
 
             rover.FacingDirection = newFacingDirectionDegrees == -90
-                ? FacingDirection.West
+                ? FacingDirection.W
                 : (FacingDirection)newFacingDirectionDegrees;
         }
     }

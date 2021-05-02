@@ -21,7 +21,7 @@ namespace MarRover.UnitTests.Application.Rovers
         [InlineData(1, 2, MovementType.Forward, MovementType.Right, MovementType.Forward, MovementType.Left, MovementType.Forward)]
         public async Task Should_move_rover_to_the_expected_position(int expectedX, int expectedY, params MovementType[] movements)
         {
-            var rover = new Rover(FacingDirection.North, new Position(0, 0));
+            var rover = new Rover(FacingDirection.N, new Position(0, 0));
 
             var expectedPosition = new Position(expectedX, expectedY);
 
@@ -50,7 +50,7 @@ namespace MarRover.UnitTests.Application.Rovers
         [InlineData(MovementType.Right, MovementType.Forward, MovementType.Forward, MovementType.Right, MovementType.Forward)] //off-grid (2, -1)
         public async Task Should_stop_moving_if_the_next_movement_is_off_grid(params MovementType[] movements)
         {
-            var rover = new Rover(FacingDirection.North, new Position(0, 0));
+            var rover = new Rover(FacingDirection.N, new Position(0, 0));
 
             var command = new MoveRoverCommand
             {

@@ -10,8 +10,8 @@ namespace Domain.Entities
         public int Length { get; }
         public int StartX { get; }
         public int StartY { get; }
-        public int EndX { get; }
-        public int EndY { get; }
+        public int EndX => Width + StartX;
+        public int EndY => Length + StartY;
 
         public Plateau(int width, int length)
         {
@@ -24,8 +24,6 @@ namespace Domain.Entities
             StartY = 0;
             Width = width;
             Length = length;
-            EndX = width + StartX;
-            EndY = length + StartY;
         }
 
         public bool IsWithinBounds(Position targetPosition)
