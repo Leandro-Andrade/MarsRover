@@ -15,7 +15,7 @@ namespace Domain.Entities
 
         public Plateau(int width, int length)
         {
-            if (width < 0 || length < 0 || width * length < MinimumPlateauArea)
+            if (width <= 0 || length <= 0 || width * length < MinimumPlateauArea)
             {
                 throw new InvalidPlateauSizeException(width, length);
             }
