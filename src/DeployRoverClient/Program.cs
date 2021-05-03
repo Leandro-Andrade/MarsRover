@@ -17,12 +17,10 @@ namespace DeployRoverClient
 
             Console.WriteLine("Welcome to Mars Control Center!");
 
-            string input;
-
             try
             {
                 Console.WriteLine("Please inform the size of the plateau [Width] [Length] (e.g. 4 5)");
-                input = Console.ReadLine();
+                string input = Console.ReadLine();
 
                 var newMissionDto = new NewMissionDto
                 {
