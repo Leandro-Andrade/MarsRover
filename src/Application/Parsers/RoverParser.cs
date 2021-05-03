@@ -9,7 +9,7 @@ namespace Application.Parsers
     {
         public Rover Parse(string roverStartPosition)
         {
-            var positions = roverStartPosition.Split(' ');
+            string[] positions = roverStartPosition.Split(' ');
 
             int x, y;
 
@@ -21,11 +21,6 @@ namespace Application.Parsers
             catch (Exception e)
             {
                 throw new InvalidRoverException(roverStartPosition);
-            }
-
-            if (positions[2] != "N" && positions[2] != "S" && positions[2] != "E" && positions[2] != "W")
-            {
-                throw new InvalidFacingDirectionException(positions[2]);
             }
 
             var facingDirection = new FacingDirectionParser().Parse(positions[2]);
