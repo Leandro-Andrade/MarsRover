@@ -30,9 +30,10 @@ Deploying and exploring Mars with a rover
 
 ## How to run
 
-1. On Visual Studio, just Run the solution.
-2. Inform the plateau size and hit `[ENTER]`
-3. Inform the position of the Rover and hit `[ENTER]`
-4. Inform the directions you want it to move and hit `[ENTER]`
+1. From a powershell command line run `.\run.ps1`
+    * You may also run it inside docker with `.\run_docker.ps1`
+2. Inform the plateau size and hit `[ENTER]` (e.g. 4 5)
+3. Inform the position of the Rover and hit `[ENTER]` (e.g. 0 0 N)
+4. Inform the directions you want it to move and hit `[ENTER]` (e.g. MML)
 
 * If you want to ADD more rovers, just hit `[ENTER]`, otherwise type "`ok`" and hit `[ENTER]` to execute the mission.
